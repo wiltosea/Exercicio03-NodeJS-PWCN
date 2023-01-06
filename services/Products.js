@@ -5,6 +5,9 @@ export const ProductsService = {
 	findAll() {
 		return db(TABLE_NAME).select("*");
 	},
+	findOne(id) {
+		return db(TABLE_NAME).where("id", id).select();
+	},
 	insert(product) {
 		return db(TABLE_NAME).insert(product);
 	},
@@ -12,12 +15,10 @@ export const ProductsService = {
 		return db(TABLE_NAME).where("id", id).del();
 	},
 	update(product) {
-		return db(TABLE_NAME)
-			.where("id", product.id)
-			.update({
-				name: product.name,
-				description: product.description,
-				price: product.price
-			});
+		return db(TABLE_NAME).where("id", product.id).update({
+			name: product.name,
+			description: product.description,
+			price: product.price,
+		});
 	},
 };

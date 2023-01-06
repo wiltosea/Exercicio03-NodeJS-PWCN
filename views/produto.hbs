@@ -1,0 +1,28 @@
+<h1>Product</h1>
+<p>Welcome to our product store</p>
+{{#each product}}
+	<h2><b>{{this.name}}</b></h2>
+	<p>{{this.description}}</p>
+    <p><b>Price</b>: ${{this.price}}</p>
+    <p><b>Cod.:</b>: ${{this.id}}</p>
+	<hr />
+	<form action="/products/{{this.id}}/comments" method="POST">
+	<label for="author">Nome:</label><br>
+	<input type="text" id="author" name="author">
+	<br><br>
+	<label for="comment">Comentário:</label><br>
+	<textarea id="comment" name="comment"></textarea>
+	<br><br>
+	<input type="submit" value="enviar">
+</form>
+{{/each}}
+<h2>Comentários</h2>
+<ul>
+  {{#each comments}}
+  <li>
+    <h3>{{author}}</h3>
+    <p>{{comment}}</p>
+  </li>
+  {{/each}}
+</ul>
+

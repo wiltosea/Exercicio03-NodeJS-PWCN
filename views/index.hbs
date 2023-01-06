@@ -1,11 +1,12 @@
-<h1>Store</h1>
-<p>Welcome to our product store</p>
+<h1>Lojinha</h1>
+<p>Veja nossos produtos</p>
 
 <ul>
     {{#each products}}
         <li>
             <p><b>{{this.name}}</b>: {{this.description}}</p>
             <p><b>Price</b>: ${{this.price}}</p>
+						<a href="/products/{{this.id}}">veja mais</a>
         </li>
     {{/each}}
 </ul>

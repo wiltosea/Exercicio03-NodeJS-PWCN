@@ -1,19 +1,31 @@
 import express from "express";
 const router = express.Router();
 import { ProductsService } from "../services/Products.js";
+import { Comments } from "../services/Comment.js";
+import knex from "knex";
 
-/* GET home page. */
 router.get("/", function (_, res) {
 	ProductsService.findAll().then(function (products) {
 		res.render("index", { products });
 	});
 });
 
-// router.get("/", function (_, res) {
-// 	ProductsService.findAll().then((products) => {
-// 		res.json(products);
-// 	});
-// });
+router.get("/:id", async (req, res) => {
+	const id = req.params.id;
+	const product = await ProductsService.findOne(id);
+	const comments = await Comments.findAllByProduct(id);
+
+	res.render("produto", { product, comments });
+});
+
+router.post("/:id/comments", async (req, res) => {
+	const id = req.params.id;
+	const author = req.body.author;
+	const comment = req.body.comment;
+
+	await Comments.insert(id, author, comment);
+	res.redirect(`/products/${id}`);
+});
 
 router.delete("/:id", function (req, res) {
 	const { id } = req.params;
